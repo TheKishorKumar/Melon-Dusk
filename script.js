@@ -1,3 +1,10 @@
+const startScreen = document.getElementById('startScreen');
+const startBtn = document.getElementById('startBtn');
+
+startBtn.addEventListener('click', () => {
+  startScreen.style.display = 'none';
+  gameLoop();
+});
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
@@ -47,6 +54,17 @@ function spawnObstacle() {
   };
   obstacles.push(obstacle);
 }
+
+
+function checkCollision(player, obstacle) {
+  return (
+    player.x < obstacle.x + obstacle.width &&
+    player.x + player.width > obstacle.x &&
+    player.y < obstacle.y + obstacle.height &&
+    player.y + player.height > obstacle.y
+  );
+}
+
 
 function update() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
