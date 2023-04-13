@@ -10,6 +10,7 @@ let gameOver = false;
 startBtn.addEventListener('click', () => {
   startScreen.style.display = 'none';
   // This code will play the background Music once the start button is pressed
+  backgroundMusic.volume = 0.8; // Set the volume to 80%
   backgroundMusic.play();
   backgroundMusic.loop = true;
   gameLoop();
