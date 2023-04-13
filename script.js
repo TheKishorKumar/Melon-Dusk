@@ -1,14 +1,20 @@
 const startScreen = document.getElementById('startScreen');
 const startBtn = document.getElementById('startBtn');
+const backgroundMusic = document.getElementById('backgroundMusic');
 
 
 let gameOver = false;
 
 
+
 startBtn.addEventListener('click', () => {
   startScreen.style.display = 'none';
+  // This code will play the background Music once the start button is pressed
+  backgroundMusic.play();
+  backgroundMusic.loop = true;
   gameLoop();
 });
+
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
