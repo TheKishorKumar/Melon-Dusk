@@ -1,6 +1,10 @@
 const startScreen = document.getElementById('startScreen');
 const startBtn = document.getElementById('startBtn');
 
+
+let gameOver = false;
+
+
 startBtn.addEventListener('click', () => {
   startScreen.style.display = 'none';
   gameLoop();
@@ -67,6 +71,7 @@ function checkCollision(player, obstacle) {
 
 
 function update() {
+  if (gameOver) return;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   // Move player
@@ -89,6 +94,12 @@ function update() {
   // Update obstacles
   obstacles.forEach((obstacle, index) => {
     obstacle.y += obstacle.speed;
+
+    // Check for collision with player
+    if (checkCollision(player, obstacle)) {
+      gameOver = true;
+      return;
+    }
 
     // Check for collision
     player.bullets.forEach((bullet, bIndex) => {
@@ -136,9 +147,18 @@ setInterval(spawnObstacle, 2000);
 // Game loop
 function gameLoop() {
   update();
+
+  if (gameOver) {
+    ctx.font = '30px Arial';
+    ctx.fillStyle = 'white';
+    ctx.fillText('Game Over', canvas.width / 2 - 80, canvas.height / 2);
+    return;
+  }
+
   if (spacePressed && player.bullets.length < 1) {
     player.bullets.push(new Bullet(player.x + player.width / 2 - 2.5, player.y));
   }
+
   requestAnimationFrame(gameLoop);
 }
 
