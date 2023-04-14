@@ -11,7 +11,7 @@ const playerImg = new Image();
 playerImg.src = 'player.png';
 const obstacleImg = new Image();
 obstacleImg.src = 'obstacle1.png';
-
+const volumeControl = document.getElementById('volumeControl');
 
 let highScore = 0;
 let score = 0;
@@ -32,6 +32,10 @@ const player = {
 };
 
 const obstacles = [];
+
+volumeControl.addEventListener('input', () => {
+  backgroundMusic.volume = volumeControl.value / 100;
+});
 
 restartBtn.addEventListener('click', () => {
   endScreen.style.display = 'none';
