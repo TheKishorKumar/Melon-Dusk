@@ -189,11 +189,12 @@ document.addEventListener('keyup', (event) => {
 setInterval(spawnObstacle, 2000);
 
 // Game loop
+// Game loop
 function gameLoop() {
   update();
 
   if (gameOver) {
-
+    backgroundMusic.pause(); // Pause the background music
 
     // Update and show the end screen
     currentScoreElement.textContent = `Current Score: ${score}`;
