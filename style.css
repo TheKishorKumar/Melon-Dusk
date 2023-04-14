@@ -18,7 +18,9 @@
   color: #fff;
 }
 
-
+#volumeControlContainer {
+  margin-top: 1rem; /* Add a margin to position it better within the start screen */
+}
 
 h1 {
   color: #fff;

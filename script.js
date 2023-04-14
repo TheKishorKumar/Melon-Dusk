@@ -33,20 +33,24 @@ const player = {
 
 const obstacles = [];
 
-volumeControl.addEventListener('input', () => {
-  backgroundMusic.volume = volumeControl.value / 100;
+volumeControl.addEventListener('input', function () {
+  setVolume();
 });
+
+function setVolume() {
+  backgroundMusic.volume = volumeControl.value / 100;
+}
 
 restartBtn.addEventListener('click', () => {
   endScreen.style.display = 'none';
+  startScreen.style.display = 'flex'; // Show the start screen again, including the volume control
   resetGame();
-  gameLoop();
 });
 
 startBtn.addEventListener('click', () => {
   startScreen.style.display = 'none';
   // This code will play the background Music once the start button is pressed
-  backgroundMusic.volume = 0.2; // Set the volume to 80%
+  backgroundMusic.volume = volumeControl.value / 100; // Set the volume to the current value of volumeControl
   backgroundMusic.play();
   backgroundMusic.loop = true;
   gameLoop();
