@@ -4,7 +4,7 @@
   align-items: center;
   height: 100vh;
   margin: 0;
-  background-color: #000;
+  background-color: #0e0e0e;
   position: relative;
 }
 
@@ -15,6 +15,7 @@
   justify-content: center;
   align-items: center;
   z-index: 1;
+  color: #fff;
 }
 
 h1 {

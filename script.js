@@ -1,29 +1,26 @@
 const startScreen = document.getElementById('startScreen');
 const startBtn = document.getElementById('startBtn');
 const backgroundMusic = document.getElementById('backgroundMusic');
-
-
-let gameOver = false;
-
-
-
-startBtn.addEventListener('click', () => {
-  startScreen.style.display = 'none';
-  // This code will play the background Music once the start button is pressed
-  backgroundMusic.volume = 0.8; // Set the volume to 80%
-  backgroundMusic.play();
-  backgroundMusic.loop = true;
-  gameLoop();
-});
-
+const endScreen = document.getElementById('endScreen');
+const restartBtn = document.getElementById('restartBtn');
+const currentScoreElement = document.getElementById('currentScore');
+const highScoreElement = document.getElementById('highScore');
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
-
 const playerImg = new Image();
 playerImg.src = 'player.png';
-
 const obstacleImg = new Image();
 obstacleImg.src = 'obstacle1.png';
+
+
+let highScore = 0;
+let score = 0;
+let gameOver = false;
+
+// Keyboard event listeners
+let leftPressed = false;
+let rightPressed = false;
+let spacePressed = false;
 
 const player = {
   x: canvas.width / 2 - 25,
@@ -35,6 +32,48 @@ const player = {
 };
 
 const obstacles = [];
+
+restartBtn.addEventListener('click', () => {
+  endScreen.style.display = 'none';
+  resetGame();
+  gameLoop();
+});
+
+startBtn.addEventListener('click', () => {
+  startScreen.style.display = 'none';
+  // This code will play the background Music once the start button is pressed
+  backgroundMusic.volume = 0.2; // Set the volume to 80%
+  backgroundMusic.play();
+  backgroundMusic.loop = true;
+  gameLoop();
+});
+
+player.bullets.forEach((bullet, bIndex) => {
+  if (
+    bullet.x < obstacle.x + obstacle.width &&
+    bullet.x + bullet.width > obstacle.x &&
+    bullet.y < obstacle.y + obstacle.height &&
+    bullet.y + bullet.height > obstacle.y
+  ) {
+    obstacles.splice(index, 1);
+    player.bullets.splice(bIndex, 1);
+    score++; // Increase the score by 1
+  }
+});
+
+
+function resetGame() {
+  gameOver = false;
+  obstacles.length = 0;
+  player.bullets.length = 0;
+  player.x = canvas.width / 2 - 25;
+  player.y = canvas.height - 60;
+  score = 0;
+}
+
+
+
+
 
 class Bullet {
   constructor(x, y) {
@@ -103,7 +142,7 @@ function update() {
     obstacle.y += obstacle.speed;
 
     // Check for collision with player
-    if (checkCollision(player, obstacle)) {
+    if (startScreen.style.display === 'none' && checkCollision(player, obstacle)) {
       gameOver = true;
       return;
     }
@@ -118,6 +157,7 @@ function update() {
       ) {
         obstacles.splice(index, 1);
         player.bullets.splice(bIndex, 1);
+        score++; // Increase the score by 1
       }
     });
 
@@ -131,10 +171,7 @@ function update() {
   ctx.drawImage(playerImg, player.x, player.y, player.width, player.height);
 }
 
-// Keyboard event listeners
-let leftPressed = false;
-let rightPressed = false;
-let spacePressed = false;
+
 
 document.addEventListener('keydown', (event) => {
   if (event.code === 'ArrowLeft') leftPressed = true;
@@ -156,10 +193,17 @@ function gameLoop() {
   update();
 
   if (gameOver) {
-    ctx.font = '30px Arial';
-    ctx.fillStyle = 'white';
-    ctx.fillText('Game Over', canvas.width / 2 - 80, canvas.height / 2);
-    return;
+
+
+    // Update and show the end screen
+    currentScoreElement.textContent = `Current Score: ${score}`;
+    if (score > highScore) {
+      highScore = score;
+      highScoreElement.textContent = `High Score: ${highScore}`;
+    }
+    endScreen.style.display = 'flex';
+
+    return; // Exit the game loop
   }
 
   if (spacePressed && player.bullets.length < 1) {
@@ -168,6 +212,7 @@ function gameLoop() {
 
   requestAnimationFrame(gameLoop);
 }
+
 
 gameLoop();
 

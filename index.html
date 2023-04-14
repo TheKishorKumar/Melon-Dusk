@@ -11,6 +11,12 @@
     <h1>Space Invaders</h1>
     <button id="startBtn">Start Game</button>
   </div>
+   <div id="endScreen" class="screen" style="display: none;">
+    <h1>Game Over</h1>
+    <p id="currentScore">Current Score: 0</p>
+    <p id="highScore">High Score: 0</p>
+    <button id="restartBtn">Restart Game</button>
+  </div>
   <canvas id="gameCanvas" width="800" height="600"></canvas>
   <audio id="backgroundMusic" preload="auto" src="sounds/background music.wav"></audio>
   <script src="script.js"></script>
