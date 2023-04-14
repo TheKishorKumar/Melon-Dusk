@@ -21,7 +21,7 @@ let gameOver = false;
 // Keyboard event listeners
 let leftPressed = false;
 let rightPressed = false;
-let spacePressed = false;
+let upPressed = false;
 
 
 startMenuBtn.addEventListener('click', () => {
@@ -202,13 +202,13 @@ function update() {
 document.addEventListener('keydown', (event) => {
   if (event.code === 'ArrowLeft') leftPressed = true;
   if (event.code === 'ArrowRight') rightPressed = true;
-  if (event.code === 'Space') spacePressed = true;
+  if (event.code === 'ArrowUp') upPressed = true;
 });
 
 document.addEventListener('keyup', (event) => {
   if (event.code === 'ArrowLeft') leftPressed = false;
   if (event.code === 'ArrowRight') rightPressed = false;
-  if (event.code === 'Space') spacePressed = false;
+  if (event.code === 'ArrowUp') upPressed = false;
 });
 
 // Spawn obstacles periodically
@@ -233,7 +233,7 @@ function gameLoop() {
     return; // Exit the game loop
   }
 
-  if (spacePressed && player.bullets.length < 1) {
+  if (upPressed && player.bullets.length < 1) {
     player.bullets.push(new Bullet(player.x + player.width / 2 - 2.5, player.y));
   }
 
