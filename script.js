@@ -8,9 +8,9 @@ const highScoreElement = document.getElementById('highScore');
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 const playerImg = new Image();
-playerImg.src = 'player.png';
+playerImg.src = 'Player.png';
 const obstacleImg = new Image();
-obstacleImg.src = 'obstacle1.png';
+obstacleImg.src = 'Obstacle1.png';
 const volumeControl = document.getElementById('volumeControl');
 
 let highScore = 0;
