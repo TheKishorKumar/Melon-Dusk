@@ -73,6 +73,10 @@ function resetGame() {
   player.x = canvas.width / 2 - 25;
   player.y = canvas.height - 60;
   score = 0;
+  
+  // Restart the background music
+  backgroundMusic.currentTime = 0;
+  backgroundMusic.play();
 }
 
 
