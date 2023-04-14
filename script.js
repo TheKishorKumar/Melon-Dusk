@@ -7,6 +7,7 @@ const currentScoreElement = document.getElementById('currentScore');
 const highScoreElement = document.getElementById('highScore');
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
+const startMenuBtn = document.getElementById('startMenuBtn');
 const playerImg = new Image();
 playerImg.src = 'Player.png';
 const obstacleImg = new Image();
@@ -21,6 +22,16 @@ let gameOver = false;
 let leftPressed = false;
 let rightPressed = false;
 let spacePressed = false;
+
+
+startMenuBtn.addEventListener('click', () => {
+  resetGame();
+  endScreen.style.display = 'none';
+  startScreen.style.display = 'flex';
+});
+
+
+
 
 const player = {
   x: canvas.width / 2 - 25,
@@ -41,20 +52,27 @@ function setVolume() {
   backgroundMusic.volume = volumeControl.value / 100;
 }
 
-restartBtn.addEventListener('click', () => {
-  endScreen.style.display = 'none';
-  startScreen.style.display = 'flex'; // Show the start screen again, including the volume control
-  resetGame();
-});
-
-startBtn.addEventListener('click', () => {
-  startScreen.style.display = 'none';
-  // This code will play the background Music once the start button is pressed
+function playBackgroundMusic() {
   backgroundMusic.volume = volumeControl.value / 100; // Set the volume to the current value of volumeControl
   backgroundMusic.play();
   backgroundMusic.loop = true;
+}
+
+
+restartBtn.addEventListener('click', () => {
+  resetGame();
+  endScreen.style.display = 'none';
+  playBackgroundMusic(); // Add this line to play the background music
   gameLoop();
 });
+
+
+startBtn.addEventListener('click', () => {
+  startScreen.style.display = 'none';
+  playBackgroundMusic(); // Call the playBackgroundMusic function
+  gameLoop();
+});
+
 
 player.bullets.forEach((bullet, bIndex) => {
   if (
@@ -77,10 +95,6 @@ function resetGame() {
   player.x = canvas.width / 2 - 25;
   player.y = canvas.height - 60;
   score = 0;
-  
-  // Restart the background music
-  backgroundMusic.currentTime = 0;
-  backgroundMusic.play();
 }
 
 
