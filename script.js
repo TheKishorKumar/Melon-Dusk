@@ -22,6 +22,7 @@ let gameOver = false;
 let leftPressed = false;
 let rightPressed = false;
 let upPressed = false;
+let animationFrameId;
 
 
 startMenuBtn.addEventListener('click', () => {
@@ -230,6 +231,7 @@ function gameLoop() {
     }
     endScreen.style.display = 'flex';
 
+    cancelAnimationFrame(animationFrameId); // Cancel the previous animation frame
     return; // Exit the game loop
   }
 
@@ -237,8 +239,10 @@ function gameLoop() {
     player.bullets.push(new Bullet(player.x + player.width / 2 - 2.5, player.y));
   }
 
-  requestAnimationFrame(gameLoop);
+  cancelAnimationFrame(animationFrameId); // Cancel the previous animation frame
+  animationFrameId = requestAnimationFrame(gameLoop); // Request a new animation frame and store its ID
 }
+
 
 
 gameLoop();
